@@ -1,4 +1,5 @@
 require('../contollers/googleAuthController');
+const { clientUrl } = require('../../config/config');
 
 const passport = require('passport');
 const { Router } = require('express');
@@ -16,8 +17,8 @@ router.get(
 router.get(
     '/callback',
     passport.authenticate('google-auth', {
-        successRedirect: 'http://localhost:3000/',
-        failureRedirect: 'http://localhost:3000/login',
+        successRedirect: `${clientUrl}/`,
+        failureRedirect: `${clientUrl}/login`,
         session: true,
     })
 );

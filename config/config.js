@@ -6,4 +6,5 @@ module.exports = {
     sessionSecret: config.get('SESSION_SECRET'),
     port: config.get('PORT'),
     connectionString: config.get('CONNECTION_STRING'),
+    clientUrl: config.get('CLIENT_URL'),
 };

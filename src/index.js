@@ -3,7 +3,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
-const { sessionSecret, port, connectionString } = require('../config/config');
+const { sessionSecret, port, connectionString, clientUrl } = require('../config/config');
 const { authRouter } = require('./routes/auth');
 const tournamentRouter = require('./routes/tournament');
 const leagueJoiningRouter = require('./routes/league');
@@ -12,13 +12,16 @@ const feedbackRouter = require('./routes/feedback')
 
 const app = express();
 
-app.use(
-    cors({
-        origin: 'http://localhost:3000',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        credentials: true,
-    })
-);
+app.use(cors({
+    origin: clientUrl,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    credentials: true,
+}));
+
+app.get("/", (req, res) => {
+    res.send("Hello World from server!");
+});
+
 app.use(
     session({ secret: sessionSecret, saveUninitialized: false, resave: false })
 );
